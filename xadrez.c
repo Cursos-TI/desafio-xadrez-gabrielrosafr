@@ -1,64 +1,82 @@
 #include <stdio.h>
 
-int main() {
-
-    //declarada as variaveis com o nome das peças do jogo
-    int torre, bispo, rainha, cavalo;
-
-    //atribui o valor 1 a todos pois seria o inicio da contagem
-    torre = 1;
-    bispo = 1;
-    rainha = 1;
-    cavalo = 1;
-    
-    //imprime 5 vezes a direção da torre conforme solicitado
-    while(torre <= 5) {
-        printf("Torre - Direita\n");
-        torre++; // incrementado para não ocorrer o looping
+// Função para movimentar a Torre (move para a direita)
+void movimentoTorre(int moverTorre) {
+    if (moverTorre > 0) {
+        printf("Direita\n");
+        movimentoTorre(moverTorre - 1);  // chamada recursiva para repetir o movimento
     }
+}
 
-    //imprime 5 vezes a direção do Bispo mas considerando que a primeira vez é obrigatória
-    do { 
-        printf("Bispo - Cima\n");
-        printf("Bispo - Direita\n");
-         bispo++; // incrementado para não ocorrer o looping
-    
-    } while (bispo <= 5);
-
-    // imprime 8 vezes a direção da rainha utilizando o for
-    for(rainha; rainha <= 8; rainha++) {
-        printf("Rainha - Esquerda\n");
-    }
-
-    //implementando o cavalo no jogo
-
-    printf("\n"); // Linha em branco separando o cavalo das outras peças
-
-    int i = 1; // adicionado varíavel i para implementar loop aninhado
-
-    // Loop externo: para os dois passos para baixo
-
-    for (cavalo; cavalo <= 1; cavalo++)
-        {
-            // Loop aninhado
-        while(i <= 2){
-            printf("Cavalo - Baixo\n");
-            i++;
+// Função para movimentar o Bispo (move diagonal: cima + direita)
+void movimentoBispo(int moverBispo) {
+    if (moverBispo > 0) {
+        // Para simular o movimento diagonal, imprime "Cima" e "Direita"
+        for (int i = 1; i <= 1; i++) { 
+            printf("Cima\n");
+            for (int j = 1; j <= 1; j++) {
+                printf("Direita\n");
+            }
         }
-   
-        printf("Cavalo - Esquerda\n");
+        movimentoBispo(moverBispo - 1);  // chamada recursiva para repetir o movimento
+    }
+}
+
+// Função para movimentar a Rainha (move para a esquerda)
+void movimentoRainha(int moverRainha) {
+    if (moverRainha > 0) {
+        printf("Esquerda\n");
+        movimentoRainha(moverRainha - 1);  // chamada recursiva para repetir o movimento
+    }
+}
+
+int main() {
+    // Movimentação da Torre
+    printf("Movimento da Torre:\n");
+    movimentoTorre(5);
+    printf("\n");
+
+    // Movimentação do Bispo
+    printf("Movimento do Bispo:\n");
+    movimentoBispo(5);
+    printf("\n");
+
+    // Movimentação da Rainha
+    printf("Movimento da Rainha:\n");
+    movimentoRainha(8);
+    printf("\n");
+
+    // Implementando o movimento do Cavalo no jogo
+    printf("Movimento do Cavalo:\n");
+
+    int cima = 1;
+    int direita = 1;
+
+    // Executa o movimento do cavalo uma vez
+    for (int mov = 1; mov <= 1; mov++) {
+        // Loop para subir até 3 vezes, mas controla fluxo com break e continue
+        while (cima <= 3) {
+
+            if (cima == 3) {
+                // Para o loop quando cima for 3
+                break;
+            }
+
+            if (cima == 2) {
+                // Pula o passo 2 (não imprime "Cima" quando cima == 2)
+                cima++;
+                continue;
+            }
+
+            printf("Cima\n");
+            cima++;
+        }
+
+        // Loop para mover uma vez para direita
+        for (direita = 1; direita <= 1; direita++) {
+            printf("Direita\n");
+        }
     }
 
     return 0;
 }
-
-  // Nível Aventureiro - Movimentação do Cavalo
-    // Sugestão: Utilize loops aninhados para simular a movimentação do Cavalo em L.
-    // Um loop pode representar a movimentação horizontal e outro vertical.
-
-    // Nível Mestre - Funções Recursivas e Loops Aninhados
-    // Sugestão: Substitua as movimentações das peças por funções recursivas.
-    // Exemplo: Crie uma função recursiva para o movimento do Bispo.
-
-    // Sugestão: Implemente a movimentação do Cavalo utilizando loops com variáveis múltiplas e condições avançadas.
-    // Inclua o uso de continue e break dentro dos loops.
